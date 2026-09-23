@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Disallow: /search
+Disallow: /*?q=
+
+# AI and answer engines are welcome to index public rankings and articles
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://gunranking.com/sitemap.xml
+Sitemap: https://gunranking.com/sitemap-news.xml

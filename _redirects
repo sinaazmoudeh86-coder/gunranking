@@ -1,0 +1,6 @@
+/assets/*  /assets/:splat  200
+/robots.txt  /robots.txt  200
+/sitemap.xml  /sitemap.xml  200
+/sitemap-news.xml  /sitemap-news.xml  200
+/llms.txt  /llms.txt  200
+/*  /index.html  200

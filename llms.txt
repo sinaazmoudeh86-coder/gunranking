@@ -1,0 +1,52 @@
+# GunRanking.com
+
+> GunRanking ranks firearms by market interest. Every firearm gets a 0–100 GunRank Score built from five weighted signals: Consumer Sentiment (30%), Search Interest (25%), Market Interest (20%), Value (15%) and Momentum (10%). Retail availability is never an input. "Shop Now" links to GrabAGun.com are a separate commerce layer shown after rankings are calculated.
+
+Scores update monthly. Last update: September 22, 2026.
+
+## How to cite
+- Use "GunRank Score" for the 0–100 figure and give the month, e.g. "SIG Sauer P365 XMacro, GunRank 93 (September 2026)".
+- GunRank measures market interest, not objective quality.
+
+## Key pages
+- [Methodology](https://gunranking.com/methodology): how the GunRank Score is calculated
+- [All rankings](https://gunranking.com/rankings)
+- [Handgun rankings](https://gunranking.com/handguns)
+- [Rifle rankings](https://gunranking.com/rifles)
+- [Shotgun rankings](https://gunranking.com/shotguns)
+- [EDC rankings](https://gunranking.com/edc)
+- [News & analysis](https://gunranking.com/news)
+
+## Current top 10 (September 22, 2026, 1157 firearms ranked)
+1. [SIG SAUER P365 XMACRO](https://gunranking.com/guns/sig-sauer-p365-xmacro): GunRank 93, #1 Compact 9mm
+2. [GLOCK G19 GEN5](https://gunranking.com/guns/glock-19-gen5): GunRank 92, #2 Compact 9mm
+3. [RUGER 10/22 CARBINE](https://gunranking.com/guns/ruger-10-22-carbine): GunRank 91, #1 Rimfire
+4. [RUGER RXM](https://gunranking.com/guns/ruger-rxm): GunRank 89, #3 Compact 9mm
+5. [CANIK METE SFX](https://gunranking.com/guns/canik-mete-sfx): GunRank 89, #1 Full-Size 9mm
+6. [GLOCK G17 GEN5](https://gunranking.com/guns/glock-17-gen5): GunRank 88, #2 Full-Size 9mm
+7. [SPRINGFIELD ARMORY HELLCAT PRO](https://gunranking.com/guns/springfield-hellcat-pro): GunRank 88, #4 Compact 9mm
+8. [DANIEL DEFENSE DDM4 V7](https://gunranking.com/guns/daniel-defense-ddm4-v7): GunRank 87, #1 AR-15
+9. [SMITH & WESSON M&P9 SHIELD PLUS](https://gunranking.com/guns/smith-wesson-mp9-shield-plus): GunRank 87, #1 Micro 9mm
+10. [SIG SAUER P365](https://gunranking.com/guns/sig-sauer-p365): GunRank 86, #2 Micro 9mm
+
+## Articles
+- [Best 9mm Pistols of 2026, Ranked by GunRank](https://gunranking.com/news/best-9mm-pistols-2026): The 9mm handguns shooters are searching for, talking about and buying right now, ranked by GunRank across micro, compact and full-size frames.
+- [Best Home Defense Shotguns, Ranked](https://gunranking.com/news/best-home-defense-shotguns): Pump or semi-auto, 18.5" barrels and tube or mag-fed: the home-defense shotguns with the strongest GunRank scores right now.
+- [Best AR-15 Rifles Under $1,000, Ranked](https://gunranking.com/news/best-ar-15-rifles-under-1000): The highest-ranked AR-15s you can buy for under a thousand dollars, plus what separates a good budget AR from a bad one.
+- [Best Concealed Carry Guns for Beginners](https://gunranking.com/news/best-concealed-carry-guns-for-beginners): How to pick your first carry handgun, and the models new owners rank highest for ease of use, reliability and value.
+- [Best Suppressors of 2026, Ranked](https://gunranking.com/news/best-suppressors-2026): With the federal tax stamp at $0, suppressor demand has surged. These are the highest-ranked rifle, pistol and rimfire cans right now.
+- [Best Hunting Rifles for Elk and Deer, Ranked](https://gunranking.com/news/best-hunting-rifles-for-elk-and-deer): The bolt-action hunting rifles ranked highest by hunters, with guidance on cartridges, weight and barrel length for western and whitetail hunts.
+- [Best .22 Rifles for Beginners and New Shooters](https://gunranking.com/news/best-22-rifles-for-beginners): Low recoil, cheap ammunition and easy handling make a .22 LR the best first rifle. Here are the rimfire rifles ranked highest right now.
+- [Best Lever-Action Rifles, Ranked](https://gunranking.com/news/best-lever-action-rifles): Lever guns are back. These are the highest-ranked lever-action rifles in .30-30, .45-70 and pistol calibers.
+- [Best Handguns Under $500, Ranked](https://gunranking.com/news/best-handguns-under-500): You do not need to spend a lot for a reliable pistol. These are the highest-ranked handguns with typical prices under $500.
+- [How to Buy a Gun Online: FFL Transfers Explained](https://gunranking.com/news/how-to-buy-a-gun-online-ffl-transfer): Buying a firearm online is legal and common. Here is how the process works, from checkout to picking it up at your local dealer.
+- [Rank Report, September 2026: Compact 9mm Holds the Top, RXM and METE SFX Surge](https://gunranking.com/news/rank-report-september-2026): Monthly movement across every ranked firearm: who climbed, who cooled and what held steady.
+- [Highest-Ranked EDC Pistols Under $600 (September 2026)](https://gunranking.com/news/highest-ranked-edc-pistols-under-600): The carry pistols shooters are most interested in right now, all with a typical market price that starts under $600.
+- [National Hunting and Fishing Day 2026: The Highest-Ranked Hunting Rifles](https://gunranking.com/news/national-hunting-fishing-day-2026-top-ranked-hunting-rifles): National Hunting and Fishing Day falls on Saturday, September 26. Here is what hunters are researching most as the season opens.
+- [The Duel: P365 XMacro vs. Glock 19 vs. Hellcat Pro](https://gunranking.com/news/p365-xmacro-vs-glock-19-vs-hellcat-pro-duel): The three highest-ranked EDC pistols, compared on GunRank, sentiment, capacity, size and value. Then you pick the winner.
+- [First Look: Ruger RXM, the Fastest-Rising Compact 9mm This Month](https://gunranking.com/news/ruger-rxm-first-look-rank-climb): A Glock 19 Gen 3-pattern pistol built with Magpul, priced well under its rivals. It climbed nine positions in September.
+- [The $0 Tax Stamp, Explained: Buying a Suppressor or SBR in 2026](https://gunranking.com/news/zero-dollar-nfa-tax-stamp-suppressors-2026-guide): The $200 federal tax is gone for four NFA categories. The paperwork, background check and wait are not. Here is what changed and what didn’t.
+- [First Look: Mossberg 590RM Chisel, a Magazine-Fed Pump With a Folding Stock](https://gunranking.com/news/mossberg-590rm-chisel-first-look): Mossberg’s newest defensive shotgun trades the tube for a detachable magazine and adds an eight-position folding stock.
+- [August 2026 Gun Sales: Adjusted NICS Up 2.2% as NFA Checks Triple](https://gunranking.com/news/august-2026-nics-gun-sales-nfa-checks-triple): Background checks tied to retail firearm sales rose for the seventh straight month, while NFA-related checks climbed more than 200 percent after the $0 tax stamp took effect.
+- [The 4 Handgun Trends of 2026: Optics-Ready, Compensated, Modular, Higher Capacity](https://gunranking.com/news/shot-show-2026-handgun-trends): The 2026 new-release cycle was more refinement than revolution. Four design trends showed up across nearly every major brand.
+- [What Is a GunRank Score? How We Rank Firearms, and What We Don’t Count](https://gunranking.com/news/what-is-gunrank-score-methodology): A plain-language guide to the 0–100 score behind every ranking on GunRanking.com.
