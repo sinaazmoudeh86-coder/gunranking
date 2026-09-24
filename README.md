@@ -29,3 +29,13 @@ On a real domain the site uses clean paths (/edc, /guns/sig-sauer-p365-xmacro, /
 Page views fire on every route change (hash navigation), with page_type and content_group.
 Custom events: grabagun_click (link_url, link_kind pdp|search, item_category firearm|ammo, item_name, price, product_slug, page_type, section), finder_start (source header|nudge, first_answer), finder_answer (question, answer, step), finder_complete (answers, results, top_pick), nudge_shown, nudge_dismiss, duel_vote, live_duel_vote, menu_open, search (search_term, results).
 In GA4: Admin → Events → mark grabagun_click and finder_complete as key events. Admin → Custom definitions → add event-scoped dimensions for link_kind, item_category, page_type, source, question, answer.
+
+
+## Product photos (self-hosted, no hotlinking)
+GrabAGun's image URLs carry a private token and may not be published or hotlinked. Photos are downloaded once, resized to 800px WebP (white margin trimmed so the product fills the frame) and served from /img on our own host.
+
+1. `npm i sharp csv-parse`
+2. `node importer/sync-images.mjs <long-gun export.csv> <handgun export.csv> <ammo export.csv>`
+3. Deploy: /img/<SKU>.webp plus /img/manifest.js ship with the site. Once the manifest lists photos, the site only references those SKUs; before the first sync it references every SKU and shows a placeholder for any file not yet present. No rebuild is needed after a sync.
+
+Re-run after every export (existing photos are skipped; --force re-downloads). Until the first run, product pages show the model-name placeholder instead of a photo.
