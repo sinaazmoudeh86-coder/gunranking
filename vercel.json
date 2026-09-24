@@ -30,5 +30,30 @@
         }
       ]
     }
-  ]
+  ],
+  "images": {
+    "sizes": [
+      320,
+      640,
+      1080
+    ],
+    "remotePatterns": [
+      {
+        "protocol": "https",
+        "hostname": "nip.grabagun.org"
+      },
+      {
+        "protocol": "https",
+        "hostname": "upload.wikimedia.org"
+      },
+      {
+        "protocol": "https",
+        "hostname": "grabagun.com"
+      }
+    ],
+    "formats": [
+      "image/webp"
+    ],
+    "minimumCacheTTL": 86400
+  }
 }

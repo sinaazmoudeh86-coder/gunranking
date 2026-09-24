@@ -1,0 +1,394 @@
+/* ============================================================
+   GrabAGun Ballistics — MOBILE-FIRST LAYER
+   Loads AFTER the inline desktop styles and only takes effect at
+   small widths, so the desktop experience is preserved verbatim.
+
+   Strategy:
+   - 3 modes become a fixed, thumb-reachable BOTTOM TAB BAR
+   - top bar collapses to brand + units
+   - Ballistics Lab inputs move into a SLIDE-UP BOTTOM SHEET
+   - every fixed multi-column grid reflows to stacks / scrollers
+   - touch targets >= 44px, scope trainer becomes drag-to-aim
+   ============================================================ */
+
+/* mobile-only chrome is inert on desktop */
+.rail-sheet-head,
+.setup-fab,
+.rail-backdrop { display: none; }
+
+/* ============================================================
+   EMBEDDED (CMS iframe) — RESULTS POPUP FIX  (applies at ALL widths)
+   When embedded, the page flows as one column and fixed overlays are
+   flattened to position:static. That made the "Course Complete" results
+   card render BELOW the live game + leaderboard with a big gap, instead of
+   popping over them. We can't reliably use position:fixed inside an
+   auto-height iframe, so instead: hide the live game once the course is
+   complete and present the results card centered at the top — reading as a
+   focused results popup. (Standalone keeps its real fixed overlay.)
+   ============================================================ */
+html[data-embedded] .rg.rg-complete { display: none !important; }
+html[data-embedded] .rg-complete + .rg-modal-overlay { padding-top: 20px; }
+html[data-embedded] .rg-modal-overlay .rg-modal {
+  width: min(560px, 96%); margin: 0 auto;
+  border: 1px solid var(--line); border-radius: var(--r-lg);
+  box-shadow: 0 30px 80px -34px rgba(11,16,24,0.45);
+}
+
+/* ============================================================
+   BETA badge (top bar) + version stamp (footer)  — all widths
+   ============================================================ */
+.brand-beta {
+  display: inline-flex; align-items: center; align-self: center; line-height: 1;
+  font-family: var(--display); font-weight: 800;
+  font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #1A1205; padding: 5px 11px 6px; border-radius: 7px;
+  background: linear-gradient(160deg, #FFD24A 0%, #E0A019 100%);
+  box-shadow: 0 5px 16px -6px rgba(224,160,25,0.75),
+              inset 0 1px 0 rgba(255,255,255,0.55);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.25);
+}
+.sf-version {
+  font-size: 11px; color: var(--ink-3); letter-spacing: 0.06em;
+  align-self: center; white-space: nowrap;
+}
+
+/* ============================================================
+   PHONES + SMALL TABLETS  (<= 880px)
+   ============================================================ */
+@media (max-width: 880px) {
+
+  :root { --mobtop: 114px; }
+
+  html, body { overflow-x: hidden; }
+  body { font-size: 14.5px; padding-bottom: 24px; }
+
+  /* ---------- TOP BAR : brand + units (row 1) + nav (row 2) ---------- */
+  .topbar {
+    height: auto; min-height: 54px; padding: 8px 14px;
+    flex-wrap: wrap; align-items: center; row-gap: 8px; column-gap: 12px;
+  }
+  .brand-img { height: 24px; }
+  .brand-sub { font-size: 10px; letter-spacing: 0.16em; padding-left: 10px; }
+  .load-strip { display: none; }       /* redundant — shown in the setup sheet */
+  .topbar-right { gap: 8px; }
+  .unit-toggle button { padding: 8px 12px; font-size: 11px; }
+
+  /* ---------- TOP TAB BAR (second row of the sticky header) ---------- */
+  .topbar-right { order: 2; }
+  .mode-switch {
+    order: 3; flex-basis: 100%; width: 100%;
+    display: flex; gap: 6px; margin: 0; padding: 8px 0 0;
+    background: transparent; border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0; box-shadow: none; backdrop-filter: none;
+  }
+  .mode-switch button {
+    position: relative; overflow: hidden;
+    flex: 1; min-width: 0;
+    flex-direction: column; gap: 5px;
+    padding: 9px 4px 8px; border-radius: 12px;
+    font-family: var(--display); font-weight: 700;
+    font-size: 9.5px; letter-spacing: 0.07em; text-transform: uppercase; line-height: 1.15;
+    white-space: normal; text-align: center; color: var(--ink-3);
+    background: var(--surface);
+    border: 1px solid var(--line); box-shadow: none;
+    transition: color .18s, background .18s, transform .12s, border-color .18s, box-shadow .18s;
+  }
+  .mode-switch button svg { position: relative; z-index: 1; width: 23px; height: 23px; opacity: 0.85;
+    transition: opacity .18s, color .18s, transform .2s cubic-bezier(.34,1.56,.64,1); }
+  .mode-switch button > * { position: relative; z-index: 1; }
+  .mode-switch button:not(.active):active { transform: scale(0.94); background: var(--surface-2); }
+  .mode-switch button:not(.active):hover { color: var(--ink); border-color: var(--line-strong); }
+
+  /* top accent indicator on the active tab */
+  .mode-switch button::before {
+    content: ""; position: absolute; z-index: 2; top: 0; left: 50%;
+    width: 0; height: 3px; border-radius: 0 0 3px 3px;
+    background: var(--accent-2);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--accent-2) 80%, transparent);
+    transform: translateX(-50%);
+    transition: width .25s cubic-bezier(.34,1.4,.64,1);
+  }
+  /* sheen sweep on the active tab */
+  .mode-switch button::after {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: linear-gradient(115deg, transparent 30%, color-mix(in srgb, #fff 32%, transparent) 48%, transparent 64%);
+    transform: translateX(-130%); opacity: 0;
+  }
+  .mode-switch button.active {
+    color: #fff;
+    background:
+      radial-gradient(120% 80% at 50% -20%, color-mix(in srgb, #fff 38%, transparent) 0%, transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--accent) 78%, #2BA7E0) 0%, var(--accent-deep) 100%);
+    border-color: color-mix(in srgb, var(--accent) 60%, #fff);
+    box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accent) 95%, transparent),
+                0 0 18px -2px color-mix(in srgb, var(--accent-2) 55%, transparent),
+                inset 0 1px 0 color-mix(in srgb, #fff 38%, transparent);
+    animation: ms-pop .32s cubic-bezier(.34,1.56,.64,1), ms-glow 2.4s ease-in-out .35s infinite;
+  }
+  .mode-switch button.active::before { width: 56%; animation: ms-bar-glow 2.4s ease-in-out infinite; }
+  .mode-switch button.active::after { animation: ms-sheen 4.5s ease 1.2s infinite; }
+  .mode-switch button.active svg {
+    opacity: 1; color: #fff; transform: translateY(-1px) scale(1.06);
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent-2) 85%, transparent));
+  }
+
+  @keyframes ms-pop {
+    0% { transform: scale(0.92); }
+    60% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+  @keyframes ms-glow {
+    0%, 100% { box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accent) 95%, transparent),
+                0 0 16px -3px color-mix(in srgb, var(--accent-2) 45%, transparent),
+                inset 0 1px 0 color-mix(in srgb, #fff 38%, transparent); }
+    50% { box-shadow: 0 12px 28px -8px color-mix(in srgb, var(--accent) 100%, transparent),
+                0 0 26px 0px color-mix(in srgb, var(--accent-2) 80%, transparent),
+                inset 0 1px 0 color-mix(in srgb, #fff 50%, transparent); }
+  }
+  @keyframes ms-bar-glow {
+    0%, 100% { box-shadow: 0 0 8px color-mix(in srgb, var(--accent-2) 70%, transparent); opacity: 0.9; }
+    50% { box-shadow: 0 0 16px color-mix(in srgb, var(--accent-2) 100%, transparent); opacity: 1; }
+  }
+  @keyframes ms-sheen {
+    0% { transform: translateX(-130%); opacity: 0; }
+    6% { opacity: 1; }
+    20% { transform: translateX(130%); opacity: 0; }
+    100% { transform: translateX(130%); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mode-switch button.active,
+    .mode-switch button.active::before,
+    .mode-switch button.active::after { animation: none; }
+  }
+
+  /* ---------- generic content padding ---------- */
+  .hunt-page { padding: 0 14px 18px; }
+  .content { padding: 0 14px 18px; }
+  .rg, .rg-setupwrap { padding-left: 14px; padding-right: 14px; }
+
+  /* ---------- SECTION EYEBROWS ---------- */
+  .eyebrow { flex-direction: column; align-items: flex-start; gap: 7px; margin: 22px 0 14px; }
+  .eb-rule { display: none; }
+  .eb-title { font-size: 19px; }
+
+  /* ============================================================
+     BALLISTICS LAB
+     ============================================================ */
+  .layout { display: block; }
+
+  /* sticky cartridge/load bar that launches the input sheet */
+  .setup-fab {
+    display: flex; align-items: center; gap: 12px; width: 100%;
+    position: sticky; top: var(--mobtop); z-index: 22;
+    margin: 12px 0 14px; padding: 11px 14px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-left: 2px solid var(--accent-2); border-radius: var(--r);
+    text-align: left; cursor: pointer; box-shadow: var(--sh);
+  }
+  .setup-fab-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+  .setup-fab-cal { font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: 0.01em; color: var(--ink); }
+  .setup-fab-load { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .setup-fab-cta {
+    display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;
+    font-family: var(--display); font-weight: 600; font-size: 11.5px; letter-spacing: 0.05em; text-transform: uppercase;
+    color: #fff; background: var(--accent-deep); padding: 9px 13px; border-radius: var(--r-sm);
+  }
+
+  /* the input panel becomes a slide-up sheet */
+  .rail {
+    position: fixed; left: 0; right: 0; bottom: 0; top: auto;
+    height: auto; max-height: 84vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+    z-index: 60; border-right: 0; border-top: 1px solid var(--line);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -22px 60px -22px rgba(0,0,0,0.85);
+    transform: translateY(106%); transition: transform .3s cubic-bezier(.32,.72,0,1);
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  }
+  .layout.inputs-open .rail { transform: none; }
+
+  /* ---- EMBEDDED (CMS iframe) : the slide-up bottom sheet can't work because
+     the page must flow as ONE column with no fixed/transformed layers. Render
+     the inputs inline instead (mirrors the desktop stacked layout). Without
+     this, [data-embedded] forces the rail static while the sheet transform
+     still shoves it ~1800px down — leaving a huge blank gap + overlap. ---- */
+  html[data-embedded] .rail {
+    transform: none !important; position: static !important;
+    height: auto !important; max-height: none !important; overflow: visible !important;
+    border-radius: 0 !important; box-shadow: none !important;
+    border-top: 0 !important; border-bottom: 1px solid var(--line) !important;
+    padding-bottom: 8px !important;
+  }
+  html[data-embedded] .setup-fab,
+  html[data-embedded] .rail-sheet-head,
+  html[data-embedded] .rail-backdrop { display: none !important; }
+
+  .rail-backdrop {
+    display: block; position: fixed; inset: 0; z-index: 55;
+    background: rgba(4,7,12,0.62); opacity: 0; pointer-events: none;
+    transition: opacity .3s ease; backdrop-filter: blur(2px);
+  }
+  .layout.inputs-open .rail-backdrop { opacity: 1; pointer-events: auto; }
+
+  .rail-sheet-head {
+    display: flex; align-items: center; gap: 12px;
+    position: sticky; top: 0; z-index: 3;
+    padding: 18px 16px 12px; background: var(--bg-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .rail-sheet-grab {
+    position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 4px; border-radius: 2px; background: var(--line-strong);
+  }
+  .rail-sheet-title {
+    flex: 1; font-family: var(--display); font-weight: 700; font-size: 13px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink);
+  }
+  .rail-sheet-done {
+    border: 0; background: var(--accent-deep); color: #fff;
+    font-family: var(--display); font-weight: 600; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 9px 18px; border-radius: var(--r-sm); cursor: pointer;
+  }
+
+  /* lab summary readouts */
+  .summary-strip { grid-template-columns: repeat(2, 1fr); }
+  .stat-value { font-size: 22px; }
+
+  /* tabs scroll horizontally */
+  .tabs {
+    overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { padding: 12px 14px; flex-shrink: 0; }
+  .export-btn { flex-shrink: 0; }
+
+  .panel-pad { padding: 14px; }
+
+  /* reticle holds: chart + table stack */
+  .reticle-layout { flex-direction: column; }
+  .hold-list { width: 100%; }
+  .reticle-wrap { max-width: 360px; }
+
+  /* ============================================================
+     SHOT PLANNER — hero console
+     ============================================================ */
+  .hero { margin: 12px 0 4px; }
+  .hero-head > div:first-child { min-width: 0; padding: 14px; }
+  .hero-title { font-size: 26px; }
+  .hero-quickstats { width: 100%; border-left: 0; border-top: 1px solid var(--line); }
+  .hqs { flex: 1; min-width: 0; padding: 12px 10px; }
+  .hqs b { font-size: 20px; }
+
+  .hero-controls {
+    grid-template-columns: 1fr 1fr; gap: 13px 12px; padding: 14px;
+  }
+  .hero-controls > .hctl:nth-child(1),   /* caliber */
+  .hctl-load,
+  .hctl-barrel { grid-column: 1 / -1; }
+
+  .hero-body { grid-template-columns: 1fr; }
+  .hero-panel.hero-drop { border-right: 0; border-bottom: 1px solid var(--line); }
+  .hero-holds .reticle-wrap { max-width: 320px; }
+
+  .hero-calls { flex-direction: column; align-items: stretch; gap: 10px; }
+  .hc-label { flex-direction: row; align-items: baseline; gap: 8px; }
+  .hc-lab { padding: 13px; }
+
+  /* ---- comparison stack ---- */
+  .hero-compare { flex-direction: column; align-items: stretch; gap: 10px; padding: 12px 14px; }
+  .hcmp-label { flex-direction: row; align-items: baseline; gap: 8px; }
+  .hcmp-chips { gap: 8px; }
+  .hcmp-chip, .hcmp-add { flex: 1 1 auto; }
+  .hcmp-pick { flex: 1; }
+  .cmp-legend-readout { gap: 10px 14px; }
+
+  /* ---------- game picker ---------- */
+  .hunt-games { grid-template-columns: repeat(3, 1fr); }
+  .game-chip { min-height: 86px; padding: 12px 5px 10px; }
+  .game-emoji { font-size: 22px; }
+
+  /* ---------- hunt controls ---------- */
+  .hunt-controls { grid-template-columns: 1fr; gap: 16px; }
+  .hc-supp { justify-content: flex-start; }
+
+  /* ---------- species brief ---------- */
+  .species-brief { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+  /* ---------- recommendation cards ---------- */
+  .rec-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  /* ============================================================
+     COMPARE
+     ============================================================ */
+  .cmp-head { flex-direction: column; align-items: stretch; gap: 12px; }
+  .sku-form { width: 100%; }
+  .sku-input { width: 100%; flex: 1 1 100%; }
+  .product-demo { grid-template-columns: 1fr; }
+
+  /* ============================================================
+     TEST YOUR SETUP — trainer
+     ============================================================ */
+  .rg { grid-template-columns: 1fr; gap: 12px; padding-top: 14px; padding-bottom: 24px; }
+  .rg-center { order: -1; }
+  .rg-side, .rg-prog { width: 100%; }
+  .rg-scene { max-width: 520px; }
+  .rg-scope { touch-action: none; }
+
+  /* HUD scaled down for small screens */
+  .rg-hud-range { font-size: 34px; }
+  .rg-hud-range em { font-size: 13px; }
+  .rg-hud-windv { font-size: 20px; }
+  .rg-tb-time { font-size: 34px; }
+
+  /* fire button: big tap target, lifted clear of feedback */
+  .rg-fire { padding: 14px 38px; font-size: 14px; bottom: 50px; }
+
+  /* Setup screen: float the BEGIN COURSE CTA to the TOP on mobile so it's the
+     first thing in reach — rig config + dope tree follow below it. */
+  .rg-setupwrap { display: flex; flex-direction: column; }
+  .rg-setupwrap > .eyebrow { order: 0; }
+  .rg-begin-bar { order: 1; }
+  .rg-setupgrid { order: 2; }
+
+  .rg-setupgrid { gap: 12px; }
+  .rg-begin-bar {
+    flex-direction: column; align-items: stretch; gap: 12px; padding: 16px 14px;
+    margin: 0 0 14px;
+  }
+  .rg-begin-wind { justify-content: center; text-align: center; flex-wrap: wrap; }
+  .rg-begin { justify-content: center; width: 100%; font-size: 18px; padding: 18px; letter-spacing: 0.04em; }
+
+  /* keep BOTH the top bar and the bottom tab nav visible/tappable while the
+     trainer intro & results popups are open (mirrors the desktop z-index fix) */
+  .rg-modal-overlay { inset: var(--mobtop) 0 0 0; padding: 14px; }
+  .rg-modal { max-height: none; }
+}
+
+/* ============================================================
+   SMALL PHONES  (<= 600px) — finer tuning
+   ============================================================ */
+@media (max-width: 600px) {
+  .hero-title { font-size: 23px; }
+  .hero-controls { grid-template-columns: 1fr; }
+  .hero-controls > .hctl:nth-child(1),
+  .hctl-load, .hctl-barrel { grid-column: auto; }
+  .hctl-narrow { } /* zero / optic stay full width too */
+
+  .summary-strip { grid-template-columns: repeat(2, 1fr); }
+
+  .brand-sub { display: none; }   /* keep just the logo mark */
+
+  /* mode labels stay but tighten */
+  .mode-switch button { font-size: 9.5px; }
+}
+
+/* ============================================================
+   TABLET LANDSCAPE-ish  (881px – 1080px)
+   keep the desktop chrome but ease the densest 3-col layouts
+   ============================================================ */
+@media (min-width: 881px) and (max-width: 1080px) {
+  .summary-strip { grid-template-columns: repeat(3, 1fr); }
+  .rec-grid { grid-template-columns: repeat(2, 1fr); }
+  .hunt-games { grid-template-columns: repeat(5, 1fr); }
+}
