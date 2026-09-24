@@ -23,3 +23,9 @@ On a real domain the site uses clean paths (/edc, /guns/sig-sauer-p365-xmacro, /
 4. Add product images (GrabAGun CDN URLs in each record's image field).
 5. For full SEO, add pre-rendering (e.g. Prerender.io, or rebuild on Next.js/Astro with the same data files) so crawlers get complete HTML without running JavaScript.
 6. Connect a votes API and newsletter provider (the forms currently save locally only).
+
+
+## Analytics (GA4: G-L15S8ZCKX3)
+Page views fire on every route change (hash navigation), with page_type and content_group.
+Custom events: grabagun_click (link_url, link_kind pdp|search, item_category firearm|ammo, item_name, price, product_slug, page_type, section), finder_start (source header|nudge, first_answer), finder_answer (question, answer, step), finder_complete (answers, results, top_pick), nudge_shown, nudge_dismiss, duel_vote, live_duel_vote, menu_open, search (search_term, results).
+In GA4: Admin → Events → mark grabagun_click and finder_complete as key events. Admin → Custom definitions → add event-scoped dimensions for link_kind, item_category, page_type, source, question, answer.
