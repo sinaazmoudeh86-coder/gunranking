@@ -13,7 +13,7 @@
   ],
   "headers": [
     {
-      "source": "/(assets|img)/(.*)",
+      "source": "/assets/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -49,7 +49,19 @@
       {
         "protocol": "https",
         "hostname": "grabagun.com"
-      }
+      },
+      { "protocol": "https", "hostname": "ruger.com" },
+      { "protocol": "https", "hostname": "www.sigsauer.com" },
+      { "protocol": "https", "hostname": "cdn.shopify.com" },
+      { "protocol": "https", "hostname": "danieldefense.com" },
+      { "protocol": "https", "hostname": "springfieldarmory.b-cdn.net" },
+      { "protocol": "https", "hostname": "eu-images.contentstack.com" },
+      { "protocol": "https", "hostname": "www.mossberg.com" },
+      { "protocol": "https", "hostname": "dam.beretta.com" },
+      { "protocol": "https", "hostname": "www.benelliusa.com" },
+      { "protocol": "https", "hostname": "www.bergara.online" },
+      { "protocol": "https", "hostname": "silencerco.com" },
+      { "protocol": "https", "hostname": "www.henryusa.com" }
     ],
     "formats": [
       "image/webp"
