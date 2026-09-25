@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>Warm product photos</title>
+<style>body{font:16px/1.5 system-ui,sans-serif;background:#F4F2EC;color:#111318;margin:0;padding:48px;max-width:720px}h1{font-size:28px;margin:0 0 8px}button{font:600 16px system-ui;padding:14px 28px;border-radius:999px;border:0;background:#111318;color:#fff;cursor:pointer}button:disabled{opacity:.45}.bar{height:14px;border-radius:999px;background:#DCD7CC;overflow:hidden;margin:24px 0 8px}.bar i{display:block;height:100%;width:0;background:#FF5A1F;transition:width .3s}</style>
+<script src="/img/manifest.js"></script></head><body>
+<h1>Warm product photos</h1>
+<p>Copies every product photo from GrabAGun onto gunranking.com so visitors never wait on the first load. Keep this tab open until it finishes (about 20–40 minutes). Safe to re-run; finished photos return instantly.</p>
+<button id="go">Start</button>
+<div class="bar"><i id="bar"></i></div><div id="st">Ready: <span id="n"></span> photos × 2 sizes</div>
+<script>
+const K = Object.keys(window.GR_IMG_HAVE || {}); document.getElementById('n').textContent = K.length.toLocaleString();
+document.getElementById('go').onclick = async function () {
+  this.disabled = true; const jobs = []; K.forEach(k => { jobs.push('/img/' + k + '.webp?w=320'); jobs.push('/img/' + k + '.webp?w=640'); });
+  let done = 0, fail = 0; const bar = document.getElementById('bar'), st = document.getElementById('st'), failed = [];
+  async function worker() { while (jobs.length) { const u = jobs.shift(); let ok = false;
+    for (let i = 0; i < 2 && !ok; i++) { try { const r = await fetch(u); ok = r.ok; await r.arrayBuffer(); } catch (e) {} }
+    ok ? done++ : (fail++, failed.push(u)); const t = done + fail; bar.style.width = (t / (K.length * 2) * 100) + '%';
+    st.textContent = t.toLocaleString() + ' / ' + (K.length * 2).toLocaleString() + ' · ' + fail + ' failed'; } }
+  await Promise.all(Array.from({ length: 6 }, worker));
+  st.textContent += ' · Done.' + (fail ? ' Press Start again to retry the ' + fail + ' that failed.' : ''); this.disabled = false; K.length = 0; failed.forEach(u => { const k = u.match(/img\/(.+)\.webp/)[1]; if (!K.includes(k)) K.push(k); });
+};
+</script></body></html>

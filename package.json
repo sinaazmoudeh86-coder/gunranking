@@ -1,0 +1,10 @@
+{
+  "name": "gunranking",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "sharp": "^0.33.5"
+  }
+}
