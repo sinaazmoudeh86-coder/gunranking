@@ -3,13 +3,17 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/((?!assets/|robots\\.txt|sitemap.*\\.xml|llms\\.txt|favicon).*)",
+      "source": "/img/:sku.webp",
+      "destination": "/api/img?sku=:sku"
+    },
+    {
+      "source": "/((?!assets/|img/|api/|robots\\.txt|sitemap.*\\.xml|llms\\.txt|favicon).*)",
       "destination": "/index.html"
     }
   ],
   "headers": [
     {
-      "source": "/assets/(.*)",
+      "source": "/(assets|img)/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -40,10 +44,6 @@
     "remotePatterns": [
       {
         "protocol": "https",
-        "hostname": "nip.grabagun.org"
-      },
-      {
-        "protocol": "https",
         "hostname": "upload.wikimedia.org"
       },
       {
@@ -54,6 +54,17 @@
     "formats": [
       "image/webp"
     ],
-    "minimumCacheTTL": 86400
+    "minimumCacheTTL": 86400,
+    "localPatterns": [
+      {
+        "pathname": "/img/**"
+      }
+    ]
+  },
+  "functions": {
+    "api/img.js": {
+      "maxDuration": 15,
+      "includeFiles": "api/_img-tokens.json"
+    }
   }
 }
