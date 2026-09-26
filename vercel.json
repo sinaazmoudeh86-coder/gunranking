@@ -7,7 +7,7 @@
       "destination": "/api/img?sku=:sku"
     },
     {
-      "source": "/((?!assets/|img/|api/|robots\\.txt|sitemap.*\\.xml|llms\\.txt|favicon).*)",
+      "source": "/((?!assets/|img/|api/|tools/.+\\.|robots\\.txt|sitemap.*\\.xml|llms\\.txt|favicon).*)",
       "destination": "/index.html"
     }
   ],
